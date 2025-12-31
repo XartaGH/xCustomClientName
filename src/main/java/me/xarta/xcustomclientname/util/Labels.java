@@ -1,3 +1,4 @@
+
 package me.xarta.xcustomclientname.util;
 
 import me.xarta.xcustomclientname.config.ConfigHandler;
@@ -16,13 +17,24 @@ public final class Labels {
         String name    = safeGet(ConfigHandler.CLIENT_NAME::get, "Project Name");
         String version = safeGet(ConfigHandler.CLIENT_VERSION::get, "1.0");
         boolean show   = safeGet(ConfigHandler.DISPLAY_MOD_LOADER::get, false);
-        if (!show) return name + " " + version;
+
+        String base = name;
+        if (!isBlank(version)) {
+            base = base + " " + version;
+        }
+
+        if (!show) return base;
 
         String brand  = ClientBrandRetriever.getClientModName();
         String neoVer = ModList.get().getModContainerById("neoforge")
                 .map(c -> c.getModInfo().getVersion().toString())
                 .orElse("unknown");
 
-        return name + " " + version + " (" + brand + "-" + neoVer + "/" + brand + ")";
+        String suffix = "(" + brand + "-" + neoVer + "/" + brand + ")";
+        return base + " " + suffix;
+    }
+
+    private static boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
     }
 }

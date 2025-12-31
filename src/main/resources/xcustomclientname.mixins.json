@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "VanillaDebugOverlayMixin",
-    "DetectedVersionNameMixin"
+    "DetectedVersionNameMixin",
+    "compat.betterf3.MinecraftModuleMixin",
+    "compat.betterf3.DebugLineMixin"
   ],
   "injectors": {
     "defaultRequire": 1
